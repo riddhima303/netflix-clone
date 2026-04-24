@@ -1,5 +1,5 @@
 import { Link, NavLink, useLocation } from 'react-router-dom'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import './Navbar.css'
 
 export default function Navbar({
@@ -9,6 +9,7 @@ export default function Navbar({
 }) {
   const location = useLocation()
   const [isScrolled, setIsScrolled] = useState(false)
+  const searchInputRef = useRef(null)
 
   const variant = useMemo(() => {
     if (location.pathname.startsWith('/login')) return 'auth'
@@ -22,6 +23,27 @@ export default function Navbar({
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
+
+  useEffect(() => {
+    if (!showSearch) return
+
+    const onKeyDown = (e) => {
+      if (e.defaultPrevented) return
+      if (e.metaKey || e.ctrlKey || e.altKey) return
+      if (e.key !== '/') return
+
+      const tag = e.target?.tagName
+      const isTypingTarget =
+        tag === 'INPUT' || tag === 'TEXTAREA' || e.target?.isContentEditable
+      if (isTypingTarget) return
+
+      e.preventDefault()
+      searchInputRef.current?.focus()
+    }
+
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [showSearch])
 
   return (
     <header
@@ -55,6 +77,7 @@ export default function Navbar({
             </span>
             <input
               className="navSearch__input"
+              ref={searchInputRef}
               value={searchQuery}
               onChange={(e) => onSearchChange?.(e.target.value)}
               onKeyDown={(e) => {
