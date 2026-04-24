@@ -5,7 +5,7 @@ import Footer from '../components/Footer.jsx'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { getMoviesByIds, movies, rows } from '../data/movies.js'
 import MovieCard from '../components/MovieCard.jsx'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import './Home.css'
 
 export default function Home() {
@@ -15,6 +15,7 @@ export default function Home() {
   const [searchQuery, setSearchQuery] = useState('')
   const [debouncedQuery, setDebouncedQuery] = useState('')
   const [activeResultIndex, setActiveResultIndex] = useState(0)
+  const activeResultRef = useRef(null)
 
   useEffect(() => {
     setSearchQuery('')
@@ -71,6 +72,15 @@ export default function Home() {
     return () => window.removeEventListener('keydown', onKeyDown)
   }, [activeResultIndex, filteredMovies, isSearchLoading, isSearching, navigate])
 
+  useEffect(() => {
+    if (!isSearching || isSearchLoading || filteredMovies.length === 0) return
+    activeResultRef.current?.scrollIntoView({
+      block: 'nearest',
+      inline: 'nearest',
+      behavior: 'smooth',
+    })
+  }, [activeResultIndex, filteredMovies.length, isSearchLoading, isSearching])
+
   const renderHighlightedTitle = (title) => {
     if (!highlightQuery) return title
 
@@ -121,6 +131,7 @@ export default function Home() {
                     key={movie.id}
                     className={`searchResults__item ${activeResultIndex === idx ? 'isActive' : ''}`}
                     role="listitem"
+                    ref={activeResultIndex === idx ? activeResultRef : null}
                   >
                     <MovieCard movie={movie} />
                     <p className="searchResults__movieTitle">{renderHighlightedTitle(movie.title)}</p>
