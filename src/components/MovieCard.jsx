@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import './MovieCard.css'
 
-export default function MovieCard({ movie, variant = 'poster' }) {
+export default function MovieCard({ movie, variant = 'poster', onPlay }) {
   if (!movie) return null
   const title = movie.title || movie.name || 'Untitled'
   const year = movie.year || movie.release_date?.slice(0, 4) || movie.first_air_date?.slice(0, 4)
@@ -9,8 +9,8 @@ export default function MovieCard({ movie, variant = 'poster' }) {
 
   if (!posterSrc) return null
 
-  return (
-    <Link to={`/movie/${movie.id}`} className={`card card--${variant}`} aria-label={title}>
+  const cardContent = (
+    <>
       <div className="card__media">
         <img
           className="card__img"
@@ -29,6 +29,25 @@ export default function MovieCard({ movie, variant = 'poster' }) {
           <span>{movie.maturityRating || '13+'}</span>
         </div>
       </div>
+    </>
+  )
+
+  if (onPlay) {
+    return (
+      <button
+        type="button"
+        className={`card card--${variant} card--button`}
+        aria-label={`Play ${title}`}
+        onClick={() => onPlay(movie)}
+      >
+        {cardContent}
+      </button>
+    )
+  }
+
+  return (
+    <Link to={`/movie/${movie.id}`} className={`card card--${variant}`} aria-label={title}>
+      {cardContent}
     </Link>
   )
 }

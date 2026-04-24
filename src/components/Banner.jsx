@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import './Banner.css'
 
-export default function Banner({ movie }) {
+export default function Banner({ movie, onPlay }) {
   if (!movie) return null
 
   return (
@@ -31,7 +31,12 @@ export default function Banner({ movie }) {
         <p className="banner__desc">{movie.overview}</p>
 
         <div className="banner__actions">
-          <button type="button" className="btn btn--play" aria-label="Play (UI only)">
+          <button
+            type="button"
+            className="btn btn--play"
+            aria-label="Play trailer"
+            onClick={() => onPlay?.(movie)}
+          >
             <span aria-hidden="true">▶</span>
             Play
           </button>
