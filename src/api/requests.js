@@ -11,4 +11,7 @@ const requests = {
   fetchDocumentaries: `/discover/movie?api_key=${TMDB_API_KEY}&with_genres=99`,
 };
 
+export const searchMoviesRequest = (query) =>
+  `/search/movie?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(query)}`;
+
 export default requests;
