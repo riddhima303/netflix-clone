@@ -2,15 +2,21 @@ import Navbar from '../components/Navbar.jsx'
 import Banner from '../components/Banner.jsx'
 import Row from '../components/Row.jsx'
 import Footer from '../components/Footer.jsx'
+import { useLocation } from 'react-router-dom'
 import { getMoviesByIds, movies, rows } from '../data/movies.js'
 import MovieCard from '../components/MovieCard.jsx'
 import { useEffect, useMemo, useState } from 'react'
 import './Home.css'
 
 export default function Home() {
+  const location = useLocation()
   const heroMovie = movies[0]
   const [searchQuery, setSearchQuery] = useState('')
   const [debouncedQuery, setDebouncedQuery] = useState('')
+
+  useEffect(() => {
+    setSearchQuery('')
+  }, [location.pathname])
 
   useEffect(() => {
     const handle = window.setTimeout(() => {
