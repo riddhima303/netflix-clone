@@ -72,6 +72,15 @@
   filter: brightness(1.03);
 }
 
+.searchResults__item.isActive {
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+}
+
+.searchResults__item.isActive .searchResults__movieTitle {
+  color: #fff;
+}
+
 .searchResults__movieTitle {
   margin: 8px 4px 0;
   font-size: 13px;

@@ -2,7 +2,7 @@ import Navbar from '../components/Navbar.jsx'
 import Banner from '../components/Banner.jsx'
 import Row from '../components/Row.jsx'
 import Footer from '../components/Footer.jsx'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { getMoviesByIds, movies, rows } from '../data/movies.js'
 import MovieCard from '../components/MovieCard.jsx'
 import { useEffect, useMemo, useState } from 'react'
@@ -10,9 +10,11 @@ import './Home.css'
 
 export default function Home() {
   const location = useLocation()
+  const navigate = useNavigate()
   const heroMovie = movies[0]
   const [searchQuery, setSearchQuery] = useState('')
   const [debouncedQuery, setDebouncedQuery] = useState('')
+  const [activeResultIndex, setActiveResultIndex] = useState(0)
 
   useEffect(() => {
     setSearchQuery('')
@@ -35,6 +37,39 @@ export default function Home() {
   const isSearching = searchQuery.trim().length > 0
   const isSearchLoading = isSearching && searchQuery !== debouncedQuery
   const highlightQuery = debouncedQuery.trim()
+
+  useEffect(() => {
+    setActiveResultIndex(0)
+  }, [debouncedQuery])
+
+  useEffect(() => {
+    if (!isSearching || isSearchLoading || filteredMovies.length === 0) return
+
+    const onKeyDown = (e) => {
+      const tag = e.target?.tagName
+      const isTypingTarget = tag === 'INPUT' || tag === 'TEXTAREA' || e.target?.isContentEditable
+      const isSearchInput = e.target?.classList?.contains('navSearch__input')
+      if (isTypingTarget && !isSearchInput) return
+
+      if (e.key === 'ArrowDown') {
+        e.preventDefault()
+        setActiveResultIndex((prev) => (prev + 1) % filteredMovies.length)
+      }
+
+      if (e.key === 'ArrowUp') {
+        e.preventDefault()
+        setActiveResultIndex((prev) => (prev - 1 + filteredMovies.length) % filteredMovies.length)
+      }
+
+      if (e.key === 'Enter' && filteredMovies[activeResultIndex]) {
+        e.preventDefault()
+        navigate(`/movie/${filteredMovies[activeResultIndex].id}`)
+      }
+    }
+
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [activeResultIndex, filteredMovies, isSearchLoading, isSearching, navigate])
 
   const renderHighlightedTitle = (title) => {
     if (!highlightQuery) return title
@@ -81,8 +116,12 @@ export default function Home() {
               <div className="searchResults__empty">No results found</div>
             ) : (
               <div className="searchResults__grid" role="list">
-                {filteredMovies.map((movie) => (
-                  <div key={movie.id} className="searchResults__item" role="listitem">
+                {filteredMovies.map((movie, idx) => (
+                  <div
+                    key={movie.id}
+                    className={`searchResults__item ${activeResultIndex === idx ? 'isActive' : ''}`}
+                    role="listitem"
+                  >
                     <MovieCard movie={movie} />
                     <p className="searchResults__movieTitle">{renderHighlightedTitle(movie.title)}</p>
                   </div>
