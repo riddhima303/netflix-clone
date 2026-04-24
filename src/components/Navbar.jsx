@@ -2,7 +2,11 @@ import { Link, NavLink, useLocation } from 'react-router-dom'
 import { useEffect, useMemo, useState } from 'react'
 import './Navbar.css'
 
-export default function Navbar() {
+export default function Navbar({
+  showSearch = false,
+  searchQuery = '',
+  onSearchChange,
+}) {
   const location = useLocation()
   const [isScrolled, setIsScrolled] = useState(false)
 
@@ -44,10 +48,34 @@ export default function Navbar() {
           </NavLink>
         </nav>
 
+        {showSearch ? (
+          <div className="navSearch" role="search" aria-label="Search movies">
+            <span className="navSearch__icon" aria-hidden="true">
+              ⌕
+            </span>
+            <input
+              className="navSearch__input"
+              value={searchQuery}
+              onChange={(e) => onSearchChange?.(e.target.value)}
+              placeholder="Titles, people, genres"
+              aria-label="Search movies"
+              autoComplete="off"
+              spellCheck="false"
+            />
+            {searchQuery ? (
+              <button
+                type="button"
+                className="navSearch__clear"
+                onClick={() => onSearchChange?.('')}
+                aria-label="Clear search"
+              >
+                ✕
+              </button>
+            ) : null}
+          </div>
+        ) : null}
+
         <div className="nav__actions">
-          <button className="nav__iconBtn" type="button" aria-label="Search (UI only)">
-            <span aria-hidden="true">⌕</span>
-          </button>
           <button className="nav__iconBtn" type="button" aria-label="Notifications (UI only)">
             <span aria-hidden="true">⟡</span>
           </button>
