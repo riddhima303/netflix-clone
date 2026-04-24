@@ -1,6 +1,7 @@
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import './Navbar.css'
+import PATHS from '../routes/paths.js'
 
 export default function Navbar({
   showSearch = true,
@@ -12,8 +13,8 @@ export default function Navbar({
   const searchInputRef = useRef(null)
 
   const variant = useMemo(() => {
-    if (location.pathname.startsWith('/login')) return 'auth'
-    if (location.pathname.startsWith('/profiles')) return 'profiles'
+    if (location.pathname.startsWith(PATHS.login)) return 'auth'
+    if (location.pathname.startsWith(PATHS.profiles)) return 'profiles'
     return 'default'
   }, [location.pathname])
 
@@ -54,18 +55,18 @@ export default function Navbar({
       ].join(' ')}
     >
       <div className="nav__inner">
-        <Link to="/" className="nav__brand" aria-label="Netflix">
+        <Link to={PATHS.home} className="nav__brand" aria-label="Netflix">
           <span className="nav__logo">NETFLIX</span>
         </Link>
 
         <nav className="nav__links" aria-label="Primary">
-          <NavLink to="/" end className={({ isActive }) => (isActive ? 'isActive' : '')}>
+          <NavLink to={PATHS.home} end className={({ isActive }) => (isActive ? 'isActive' : '')}>
             Home
           </NavLink>
-          <NavLink to="/profiles" className={({ isActive }) => (isActive ? 'isActive' : '')}>
+          <NavLink to={PATHS.profiles} className={({ isActive }) => (isActive ? 'isActive' : '')}>
             Profiles
           </NavLink>
-          <NavLink to="/login" className={({ isActive }) => (isActive ? 'isActive' : '')}>
+          <NavLink to={PATHS.login} className={({ isActive }) => (isActive ? 'isActive' : '')}>
             Login
           </NavLink>
         </nav>
