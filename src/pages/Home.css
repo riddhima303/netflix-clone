@@ -72,6 +72,23 @@
   filter: brightness(1.03);
 }
 
+.searchResults__movieTitle {
+  margin: 8px 4px 0;
+  font-size: 13px;
+  line-height: 1.35;
+  color: rgba(255, 255, 255, 0.86);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.searchResults__mark {
+  background: rgba(229, 9, 20, 0.22);
+  color: #fff;
+  border-radius: 4px;
+  padding: 0 2px;
+}
+
 .searchResults__empty {
   margin-top: 18px;
   padding: 18px 16px;

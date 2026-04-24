@@ -34,6 +34,29 @@ export default function Home() {
 
   const isSearching = searchQuery.trim().length > 0
   const isSearchLoading = isSearching && searchQuery !== debouncedQuery
+  const highlightQuery = debouncedQuery.trim()
+
+  const renderHighlightedTitle = (title) => {
+    if (!highlightQuery) return title
+
+    const lowerTitle = title.toLowerCase()
+    const lowerQuery = highlightQuery.toLowerCase()
+    const index = lowerTitle.indexOf(lowerQuery)
+
+    if (index === -1) return title
+
+    const before = title.slice(0, index)
+    const match = title.slice(index, index + highlightQuery.length)
+    const after = title.slice(index + highlightQuery.length)
+
+    return (
+      <>
+        {before}
+        <mark className="searchResults__mark">{match}</mark>
+        {after}
+      </>
+    )
+  }
 
   return (
     <div className="home">
@@ -61,6 +84,7 @@ export default function Home() {
                 {filteredMovies.map((movie) => (
                   <div key={movie.id} className="searchResults__item" role="listitem">
                     <MovieCard movie={movie} />
+                    <p className="searchResults__movieTitle">{renderHighlightedTitle(movie.title)}</p>
                   </div>
                 ))}
               </div>
