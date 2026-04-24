@@ -57,6 +57,9 @@ export default function Navbar({
               className="navSearch__input"
               value={searchQuery}
               onChange={(e) => onSearchChange?.(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Escape') onSearchChange?.('')
+              }}
               placeholder="Titles, people, genres"
               aria-label="Search movies"
               autoComplete="off"
