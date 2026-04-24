@@ -1,8 +1,16 @@
-import axios from "axios";
-import { TMDB_BASE_URL } from "./tmdb";
+import { TMDB_BASE_URL } from './tmdb'
 
-const tmdbAxios = axios.create({
-  baseURL: TMDB_BASE_URL,
-});
+const tmdbAxios = {
+  async get(path) {
+    const response = await fetch(`${TMDB_BASE_URL}${path}`)
 
-export default tmdbAxios;
+    if (!response.ok) {
+      throw new Error(`Request failed with status ${response.status}`)
+    }
+
+    const data = await response.json()
+    return { data }
+  },
+}
+
+export default tmdbAxios

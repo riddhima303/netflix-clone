@@ -3,7 +3,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import './Navbar.css'
 
 export default function Navbar({
-  showSearch = false,
+  showSearch = true,
   searchQuery = '',
   onSearchChange,
 }) {
