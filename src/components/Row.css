@@ -1,0 +1,67 @@
+.row {
+  padding: 18px 0 12px;
+}
+
+.row__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.row__title {
+  margin: 0;
+  font-size: 16px;
+  letter-spacing: 0.2px;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.row__scrollerWrap {
+  position: relative;
+  margin-top: 10px;
+}
+
+.row__scroller {
+  padding-inline: var(--content-pad);
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  overflow-y: visible;
+  scroll-snap-type: x proximity;
+  scroll-padding-left: var(--content-pad);
+}
+
+.row__item {
+  scroll-snap-align: start;
+  padding: 10px 2px 26px;
+}
+
+/* subtle edge gradient like Netflix */
+.row__scrollerWrap::before,
+.row__scrollerWrap::after {
+  content: '';
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: min(80px, 10vw);
+  z-index: 4;
+}
+.row__scrollerWrap::before {
+  left: 0;
+  background: linear-gradient(to right, rgba(20, 20, 20, 1), rgba(20, 20, 20, 0));
+}
+.row__scrollerWrap::after {
+  right: 0;
+  background: linear-gradient(to left, rgba(20, 20, 20, 1), rgba(20, 20, 20, 0));
+}
+
+@media (max-width: 720px) {
+  .row {
+    padding: 14px 0 10px;
+  }
+  .row__item {
+    padding-bottom: 18px;
+  }
+}
+

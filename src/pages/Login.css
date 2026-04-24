@@ -1,0 +1,150 @@
+.login {
+  min-height: 100svh;
+  background: var(--bg);
+}
+
+.login__main {
+  position: relative;
+  min-height: 100svh;
+  padding-top: var(--nav-height);
+  display: grid;
+  place-items: center;
+  padding-inline: 16px;
+}
+
+.login__bg {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.55)),
+    url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=2400&q=80');
+  background-size: cover;
+  background-position: center;
+  filter: saturate(0.9) contrast(1.05);
+}
+
+.login__scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.06), rgba(0, 0, 0, 0) 58%),
+    linear-gradient(to top, rgba(20, 20, 20, 0.95), rgba(20, 20, 20, 0.2));
+}
+
+.loginCard {
+  position: relative;
+  width: min(460px, 100%);
+  background: rgba(0, 0, 0, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 44px 40px 40px;
+  box-shadow: var(--shadow-lg);
+}
+
+.loginCard__title {
+  margin: 0 0 22px;
+  font-size: 32px;
+  letter-spacing: -0.4px;
+}
+
+.loginCard__form {
+  display: grid;
+  gap: 14px;
+}
+
+.field__input {
+  width: 100%;
+  height: 52px;
+  padding: 0 14px;
+  border-radius: 6px;
+  background: rgba(22, 22, 22, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.92);
+  outline: none;
+  transition: border-color 160ms ease, background 160ms ease, transform 160ms ease;
+}
+
+.field__input::placeholder {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.field__input:focus {
+  border-color: rgba(229, 9, 20, 0.55);
+  background: rgba(22, 22, 22, 0.95);
+}
+
+.loginCard__cta {
+  height: 48px;
+  border-radius: 6px;
+  border: 0;
+  background: var(--netflix-red);
+  color: #fff;
+  font-weight: 800;
+  cursor: pointer;
+  margin-top: 6px;
+  transition: filter 160ms ease, transform 160ms ease;
+}
+.loginCard__cta:hover {
+  filter: brightness(0.92);
+  transform: translateY(-1px);
+}
+.loginCard__cta:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+
+.loginCard__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: 4px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.remember {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.remember input {
+  accent-color: var(--netflix-red);
+}
+
+.helpLink {
+  color: rgba(255, 255, 255, 0.7);
+}
+.helpLink:hover {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.loginCard__hint {
+  margin-top: 14px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+}
+
+.hintLink {
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 700;
+}
+.hintLink:hover {
+  text-decoration: underline;
+}
+
+.loginCard__fine {
+  margin: 10px 0 0;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+@media (max-width: 520px) {
+  .loginCard {
+    padding: 34px 20px 26px;
+    border-radius: 12px;
+  }
+}
+

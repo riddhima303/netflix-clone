@@ -1,0 +1,112 @@
+.profiles {
+  min-height: 100svh;
+  background: var(--bg);
+}
+
+.profiles__main {
+  min-height: 100svh;
+  padding-top: var(--nav-height);
+  display: grid;
+  place-items: center;
+  padding-inline: var(--content-pad);
+}
+
+.profiles__center {
+  text-align: center;
+  width: min(900px, 100%);
+  padding: 18px 0 40px;
+}
+
+.profiles__title {
+  margin: 0 0 26px;
+  font-size: clamp(28px, 4vw, 44px);
+  letter-spacing: -0.6px;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.profilesGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(14px, 2.2vw, 22px);
+  justify-items: center;
+  margin: 0 auto;
+}
+
+.profile {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  padding: 10px 8px 8px;
+  border-radius: 10px;
+  transition: transform 200ms ease, filter 200ms ease;
+}
+
+.profile__avatar {
+  width: clamp(86px, 10vw, 138px);
+  aspect-ratio: 1 / 1;
+  border-radius: 12px;
+  box-shadow: 0 18px 34px rgba(0, 0, 0, 0.55);
+  position: relative;
+  overflow: hidden;
+  border: 3px solid rgba(255, 255, 255, 0.12);
+}
+
+.profile__shine {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0) 55%);
+  opacity: 0.5;
+}
+
+.profile__name {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 0.2px;
+}
+
+.profile:hover {
+  transform: scale(1.08);
+  filter: brightness(1.06);
+}
+
+.profile:hover .profile__name {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.profile:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 4px;
+}
+
+.profiles__manageBtn {
+  margin-top: 30px;
+  height: 42px;
+  padding: 0 16px;
+  border-radius: 999px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 12px;
+  transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
+}
+.profiles__manageBtn:hover {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.35);
+}
+.profiles__manageBtn:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+
+@media (max-width: 860px) {
+  .profilesGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: min(520px, 100%);
+  }
+}
+

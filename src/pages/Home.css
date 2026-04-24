@@ -1,0 +1,11 @@
+.home {
+  background: var(--bg);
+}
+
+.home__rows {
+  padding: 8px 0 10px;
+  margin-top: -46px; /* pull rows into banner like Netflix */
+  position: relative;
+  z-index: 2;
+}
+
