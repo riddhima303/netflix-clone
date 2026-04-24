@@ -4,18 +4,27 @@ import Row from '../components/Row.jsx'
 import Footer from '../components/Footer.jsx'
 import { getMoviesByIds, movies, rows } from '../data/movies.js'
 import MovieCard from '../components/MovieCard.jsx'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import './Home.css'
 
 export default function Home() {
   const heroMovie = movies[0]
   const [searchQuery, setSearchQuery] = useState('')
+  const [debouncedQuery, setDebouncedQuery] = useState('')
+
+  useEffect(() => {
+    const handle = window.setTimeout(() => {
+      setDebouncedQuery(searchQuery)
+    }, 250)
+
+    return () => window.clearTimeout(handle)
+  }, [searchQuery])
 
   const filteredMovies = useMemo(() => {
-    const q = searchQuery.trim().toLowerCase()
+    const q = debouncedQuery.trim().toLowerCase()
     if (!q) return []
     return movies.filter((m) => m.title.toLowerCase().includes(q))
-  }, [searchQuery])
+  }, [debouncedQuery])
 
   const isSearching = searchQuery.trim().length > 0
 
