@@ -8,6 +8,7 @@ import Banner from '../components/Banner.jsx'
 import Row from '../components/Row.jsx'
 import Footer from '../components/Footer.jsx'
 import { getMoviesByIds, movies, rows } from '../data/movies.js'
+import MovieCard from '../components/MovieCard.jsx'
 import './Home.css'
 
 export default function Home() {
