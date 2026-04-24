@@ -31,7 +31,6 @@ export default function Home() {
     action: requests.fetchActionMovies,
     drama: requests.fetchDocumentaries,
   }
-
   useEffect(() => {
     setSearchQuery('')
   }, [location.pathname])
@@ -53,7 +52,6 @@ export default function Home() {
 
     return () => window.clearTimeout(handle)
   }, [searchQuery])
-
   const isSearching = searchQuery.trim().length > 0
   const isSearchLoading = isSearching && (searchQuery !== debouncedQuery || isSearchFetching)
   const highlightQuery = debouncedQuery.trim()
