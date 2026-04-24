@@ -33,6 +33,7 @@ export default function Home() {
   }, [debouncedQuery])
 
   const isSearching = searchQuery.trim().length > 0
+  const isSearchLoading = isSearching && searchQuery !== debouncedQuery
 
   return (
     <div className="home">
@@ -47,7 +48,13 @@ export default function Home() {
               <div className="searchResults__count">{filteredMovies.length} titles</div>
             </div>
 
-            {filteredMovies.length === 0 ? (
+            {isSearchLoading ? (
+              <div className="searchResults__grid searchResults__grid--skeleton" role="status" aria-live="polite">
+                {Array.from({ length: 12 }).map((_, idx) => (
+                  <div key={idx} className="searchResults__skeleton" />
+                ))}
+              </div>
+            ) : filteredMovies.length === 0 ? (
               <div className="searchResults__empty">No results found</div>
             ) : (
               <div className="searchResults__grid" role="list">
