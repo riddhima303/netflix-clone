@@ -1,9 +1,21 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import tmdbAxios from '../api/axios'
 import MovieCard from './MovieCard.jsx'
 import './Row.css'
 
-export default function Row({ title, movies }) {
-  const [rowMovies] = useState(movies)
+export default function Row({ title, movies = [], fetchUrl = '' }) {
+  const [rowMovies, setRowMovies] = useState(movies)
+
+  useEffect(() => {
+    async function fetchMovies() {
+      if (!fetchUrl) return
+
+      const response = await tmdbAxios.get(fetchUrl)
+      setRowMovies(response.data.results || [])
+    }
+
+    fetchMovies()
+  }, [fetchUrl])
 
   return (
     <section className="row">
