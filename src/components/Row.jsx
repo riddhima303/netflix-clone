@@ -5,13 +5,16 @@ import './Row.css'
 
 export default function Row({ title, movies = [], fetchUrl = '' }) {
   const [rowMovies, setRowMovies] = useState(movies)
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     async function fetchMovies() {
       if (!fetchUrl) return
 
+      setIsLoading(true)
       const response = await tmdbAxios.get(fetchUrl)
       setRowMovies(response.data.results || [])
+      setIsLoading(false)
     }
 
     fetchMovies()
@@ -24,6 +27,7 @@ export default function Row({ title, movies = [], fetchUrl = '' }) {
       </div>
 
       <div className="row__scrollerWrap">
+        {isLoading && <p className="row__status">Loading movies...</p>}
         <div className="row__scroller hide-scrollbar" role="list">
           {rowMovies.map((movie) => (
             <div className="row__item" role="listitem" key={movie.id}>
