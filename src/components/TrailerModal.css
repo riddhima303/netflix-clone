@@ -1,0 +1,50 @@
+.trailerModal {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+}
+
+.trailerModal__backdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: rgba(0, 0, 0, 0.72);
+}
+
+.trailerModal__panel {
+  position: relative;
+  width: min(1100px, calc(100vw - 48px));
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.55);
+}
+
+.trailerModal__close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  border: 0;
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.trailerModal__close:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.trailerModal__frame {
+  position: absolute;
+  inset: 0;
+}
+
