@@ -13,7 +13,7 @@ import './Home.css'
 
 export default function Home() {
   const location = useLocation()
-  const heroMovie = movies[0]
+  const featuredMovies = movies.slice(0, 5)
   const [searchQuery, setSearchQuery] = useState('')
   const [debouncedQuery, setDebouncedQuery] = useState('')
   const [activeResultIndex, setActiveResultIndex] = useState(0)
@@ -252,7 +252,7 @@ export default function Home() {
           </section>
         ) : (
           <>
-            <Banner movie={heroMovie} onPlay={openPlayer} />
+            <Banner movies={featuredMovies} onPlay={openPlayer} />
 
             <section className="home__rows">
               {rows.map((r) => (
