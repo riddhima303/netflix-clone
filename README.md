@@ -12,11 +12,11 @@ This project recreates the look and feel of Netflix's homepage. It fetches real 
 
 ## How It Works
 
-1. **Login Page** — Users land on a Netflix-styled login screen to enter the app.
-2. **Home Page** — Once in, the app fetches live data from the TMDB API (trending, top rated, by genre, etc.) and renders them as horizontally scrollable rows.
-3. **Hero Banner** — A random featured movie/show is picked from the fetched data and displayed as a full-width banner at the top.
-4. **Movie Cards** — Each card shows a poster thumbnail. On hover, it scales up to highlight the title.
-5. **API Requests** — All data is fetched on page load using `fetch` or `axios`, hitting TMDB's REST endpoints with your API key stored in a `.env` file.
+
+1. **Home Page** — Once in, the app fetches live data from the TMDB API (trending, top rated, by genre, etc.) and renders them as horizontally scrollable rows.
+2. **Hero Banner** — A random featured movie/show is picked from the fetched data and displayed as a full-width banner at the top.
+3. **Movie Cards** — Each card shows a poster thumbnail. On hover, it scales up to highlight the title.
+4. **API Requests** — All data is fetched on page load using `fetch` or `axios`, hitting TMDB's REST endpoints with your API key stored in a `.env` file.
 
 ## Built With
 
